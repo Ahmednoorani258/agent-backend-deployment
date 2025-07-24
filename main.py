@@ -86,7 +86,7 @@ weather_assistant = Agent(
    """,
    tools=[get_weather]
 )
-
+@app.post("/weather")
 async def main(msg: str):
    runner = Runner()
   
