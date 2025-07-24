@@ -133,8 +133,9 @@ async def stream_weather(req: ChatRequest):
         result = Runner.run_streamed(weather_assistant, message, run_config=config)
 
         async for event in result.stream_events():
+            print("Event received:", event)
             if event.type == "raw_response_event" and hasattr(event.data, 'delta'):
-               yield event.data.delta
+               yield f"data: {event.data.delta}\n\n"
                
 
     return EventSourceResponse(
