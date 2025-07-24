@@ -135,7 +135,7 @@ async def stream_weather(req: ChatRequest):
         async def event_generator():
           print("Received request for streaming...")
           result = Runner.run(weather_assistant, message, run_config=config)
-            return result.final_output
+          return result.final_output
           # async for event in result.stream_events():
           #     print("Received event from agent:", event)
           #     if event.type == "raw_response_event" and hasattr(event.data, 'delta'):
