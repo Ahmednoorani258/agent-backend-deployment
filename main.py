@@ -87,11 +87,11 @@ weather_assistant = Agent(
    tools=[get_weather]
 )
 
-# async def main(msg: str):
-#    runner = Runner()
+async def main(msg: str):
+   runner = Runner()
   
-#    simple_request = await runner.run(weather_assistant, msg, run_config=config)
-#    return simple_request.final_output
+   simple_request = await runner.run(weather_assistant, msg, run_config=config)
+   return simple_request.final_output
 
 # if __name__ == "__main__":
 #    import asyncio
@@ -125,32 +125,32 @@ weather_assistant = Agent(
 
 #     return EventSourceResponse(event_generator())
 
-@app.post("/weather-stream")
-async def stream_weather(req: ChatRequest):
-    message = req.message
+# @app.post("/weather-stream")
+# async def stream_weather(req: ChatRequest):
+#     message = req.message
 
-    async def event_generator():
-        result = Runner.run_streamed(weather_assistant, message, run_config=config)
+#     async def event_generator():
+#         result = Runner.run_streamed(weather_assistant, message, run_config=config)
 
-        async def event_generator():
-          print("Received request for streaming...")
-          result = Runner.run(weather_assistant, message, run_config=config)
-          return result.final_output
-          # async for event in result.stream_events():
-          #     print("Received event from agent:", event)
-          #     if event.type == "raw_response_event" and hasattr(event.data, 'delta'):
-          #         yield  "data: Hello from backend!\n\n"
+#         async def event_generator():
+#           print("Received request for streaming...")
+#           result = Runner.run(weather_assistant, message, run_config=config)
+#           return result.final_output
+#           # async for event in result.stream_events():
+#           #     print("Received event from agent:", event)
+#           #     if event.type == "raw_response_event" and hasattr(event.data, 'delta'):
+#           #         yield  "data: Hello from backend!\n\n"
                
 
-    return EventSourceResponse(
-        event_generator(),
-        headers={
-            "Cache-Control": "no-cache",
-            "Content-Type": "text/event-stream",
-            "Connection": "keep-alive",
-            "X-Accel-Buffering": "no"
-        }
-    )
+    # return EventSourceResponse(
+    #     event_generator(),
+    #     headers={
+    #         "Cache-Control": "no-cache",
+    #         "Content-Type": "text/event-stream",
+    #         "Connection": "keep-alive",
+    #         "X-Accel-Buffering": "no"
+    #     }
+    # )
     
     
 if __name__ == "__main__":
